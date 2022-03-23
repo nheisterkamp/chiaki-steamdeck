@@ -22,6 +22,7 @@ int main(int argc, char *argv[]) { return real_main(argc, argv); }
 
 #include <stdio.h>
 #include <string.h>
+#include <signal.h>
 
 #include <QApplication>
 #include <QAudioOutput>
