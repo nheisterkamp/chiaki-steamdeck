@@ -3,6 +3,12 @@ cmake_minimum_required(VERSION 3.2)
 
 project(chiaki)
 
+set(CMAKE_THREAD_LIBS_INIT "-lpthread")
+set(CMAKE_HAVE_THREADS_LIBRARY 1)
+set(CMAKE_USE_WIN32_THREADS_INIT 0)
+set(CMAKE_USE_PTHREADS_INIT 1)
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+
 # Like option(), but the value can also be AUTO
 macro(tri_option name desc default)
     set("${name}" "${default}" CACHE STRING "${desc}")
@@ -33,7 +39,7 @@ tri_option(CHIAKI_USE_SYSTEM_NANOPB "Use system-provided nanopb instead of submo
 set(CHIAKI_VERSION_MAJOR 2)
 set(CHIAKI_VERSION_MINOR 1)
 set(CHIAKI_VERSION_PATCH 1)
-set(CHIAKI_VERSION ${CHIAKI_VERSION_MAJOR}.${CHIAKI_VERSION_MINOR}.${CHIAKI_VERSION_PATCH})
+set(CHIAKI_VERSION ${CHIAKI_VERSION_MAJOR}.${CHIAKI_VERSION_MINOR}.${CHIAKI_VERSION_PATCH}-steamdeck)
 
 set(CPACK_PACKAGE_NAME "chiaki")
 set(CPACK_PACKAGE_DESCRIPTION "Open Source PS4 remote play client")
