@@ -20,6 +20,7 @@ ServerItemWidget::ServerItemWidget(QWidget *parent) : QFrame(parent)
 	top_label = new QLabel(this);
 	top_label->setAlignment(Qt::AlignCenter);
 	top_label->setWordWrap(true);
+	top_label->setFont(QFont("Open Sans", 18, -1, false));
 	layout->addWidget(top_label);
 
 	icon_widget = new ServerIconWidget(this);
@@ -28,6 +29,7 @@ ServerItemWidget::ServerItemWidget(QWidget *parent) : QFrame(parent)
 	bottom_label = new QLabel(this);
 	bottom_label->setAlignment(Qt::AlignCenter);
 	bottom_label->setWordWrap(true);
+	bottom_label->setFont(QFont("Open Sans", 18, -1, false));
 	layout->addWidget(bottom_label);
 
 	setContextMenuPolicy(Qt::ActionsContextMenu);
