@@ -172,6 +172,7 @@ MainWindow::MainWindow(Settings *settings, QWidget *parent)
 	grid_widget->setContentsMargins(0, 0, 0, 0);
 
 	resize(1280, 800);
+	showMaximized();
 
 	connect(&discovery_manager, &DiscoveryManager::HostsUpdated, this, &MainWindow::UpdateDisplayServers);
 	connect(settings, &Settings::RegisteredHostsUpdated, this, &MainWindow::UpdateDisplayServers);
@@ -197,6 +198,8 @@ void MainWindow::ServerItemWidgetSelected()
 			widget->SetSelected(false);
 	}
 	server_item_widget->SetSelected(true);
+
+	ServerItemWidgetTriggered();
 }
 
 DisplayServer *MainWindow::DisplayServerFromSender()
@@ -245,8 +248,10 @@ void MainWindow::ServerItemWidgetTriggered()
 		}
 
 		QString host = server.GetHostAddr();
-		StreamSessionConnectInfo info(settings, server.registered_host.GetTarget(), host, server.registered_host.GetRPRegistKey(), server.registered_host.GetRPKey(), false);
+		StreamSessionConnectInfo info(settings, server.registered_host.GetTarget(), host, server.registered_host.GetRPRegistKey(), server.registered_host.GetRPKey(), true);
 		new StreamWindow(info);
+
+		hide();
 	}
 	else
 	{
@@ -350,7 +355,7 @@ void MainWindow::UpdateServerWidgets()
 	{
 		auto widget = new ServerItemWidget(grid_widget);
 		connect(widget, &ServerItemWidget::Selected, this, &MainWindow::ServerItemWidgetSelected);
-		connect(widget, &ServerItemWidget::Triggered, this, &MainWindow::ServerItemWidgetTriggered);
+		// connect(widget, &ServerItemWidget::Triggered, this, &MainWindow::ServerItemWidgetTriggered);
 		connect(widget, &ServerItemWidget::DeleteTriggered, this, &MainWindow::ServerItemWidgetDeleteTriggered, Qt::QueuedConnection);
 		connect(widget, &ServerItemWidget::WakeTriggered, this, &MainWindow::ServerItemWidgetWakeTriggered);
 		server_item_widgets.append(widget);
