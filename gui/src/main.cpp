@@ -47,8 +47,22 @@ static const QMap<QString, CLICommand> cli_commands = {
 int RunStream(QApplication &app, const StreamSessionConnectInfo &connect_info);
 int RunMain(QApplication &app, Settings *settings);
 
+void sig_handler(int signo)
+{
+	if (signo == SIGINT)
+	{
+		printf("received SIGINT\n");
+		qApp->exit();
+	}
+}
+
 int real_main(int argc, char *argv[])
 {
+	if (signal(SIGINT, sig_handler) == SIG_ERR)
+	{
+		printf("\ncan't catch SIGINT\n");
+	}
+
 	qRegisterMetaType<DiscoveryHost>();
 	qRegisterMetaType<RegisteredHost>();
 	qRegisterMetaType<HostMAC>();
