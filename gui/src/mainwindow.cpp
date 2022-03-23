@@ -93,6 +93,8 @@ MainWindow::MainWindow(Settings *settings, QWidget *parent)
 #else
 	auto tool_bar = new QToolBar(this);
 	tool_bar->setMovable(false);
+	tool_bar->setIconSize(QSize(64, 64));
+	tool_bar->setFixedHeight(72);
 	addToolBar(tool_bar);
 	setUnifiedTitleAndToolBarOnMac(true);
 #endif
@@ -355,7 +357,7 @@ void MainWindow::UpdateServerWidgets()
 	{
 		auto widget = new ServerItemWidget(grid_widget);
 		connect(widget, &ServerItemWidget::Selected, this, &MainWindow::ServerItemWidgetSelected);
-		// connect(widget, &ServerItemWidget::Triggered, this, &MainWindow::ServerItemWidgetTriggered);
+		connect(widget, &ServerItemWidget::Triggered, this, &MainWindow::ServerItemWidgetTriggered);
 		connect(widget, &ServerItemWidget::DeleteTriggered, this, &MainWindow::ServerItemWidgetDeleteTriggered, Qt::QueuedConnection);
 		connect(widget, &ServerItemWidget::WakeTriggered, this, &MainWindow::ServerItemWidgetWakeTriggered);
 		server_item_widgets.append(widget);

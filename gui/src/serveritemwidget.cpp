@@ -43,7 +43,7 @@ ServerItemWidget::ServerItemWidget(QWidget *parent) : QFrame(parent)
 	this->selected = true;
 	SetSelected(false);
 
-	setFixedSize(200, 200);
+	setFixedSize(300, 300);
 }
 
 void ServerItemWidget::mousePressEvent(QMouseEvent *event)
