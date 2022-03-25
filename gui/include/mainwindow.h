@@ -47,6 +47,9 @@ class MainWindow : public QMainWindow
 		DisplayServer *DisplayServerFromSender();
 		void SendWakeup(const DisplayServer *server);
 
+	protected:
+		void keyPressEvent(QKeyEvent *event) override;
+
 	private slots:
 		void ServerItemWidgetSelected();
 		void ServerItemWidgetTriggered();

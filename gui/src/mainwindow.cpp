@@ -174,7 +174,7 @@ MainWindow::MainWindow(Settings *settings, QWidget *parent)
 	grid_widget->setContentsMargins(0, 0, 0, 0);
 
 	resize(1280, 800);
-	showMaximized();
+	// showMaximized();
 
 	connect(&discovery_manager, &DiscoveryManager::HostsUpdated, this, &MainWindow::UpdateDisplayServers);
 	connect(settings, &Settings::RegisteredHostsUpdated, this, &MainWindow::UpdateDisplayServers);
@@ -202,6 +202,11 @@ void MainWindow::ServerItemWidgetSelected()
 	server_item_widget->SetSelected(true);
 
 	ServerItemWidgetTriggered();
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+	printf("keyPressEvent %i\n", event->key());
 }
 
 DisplayServer *MainWindow::DisplayServerFromSender()
@@ -298,6 +303,7 @@ void MainWindow::UpdateDiscoveryEnabled()
 void MainWindow::ShowSettings()
 {
 	SettingsDialog dialog(settings, this);
+	dialog.setModal(true);
 	dialog.exec();
 }
 

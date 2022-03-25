@@ -289,6 +289,7 @@ SettingsDialog::SettingsDialog(Settings *settings, QWidget *parent) : QDialog(pa
 						button->setText(QKeySequence(key).toString());
 						this->settings->SetControllerButtonMapping(chiaki_button, key);
 					});
+			dialog->setModal(true);
 			dialog->exec();
 		});
 	}
