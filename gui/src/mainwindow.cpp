@@ -303,6 +303,7 @@ void MainWindow::UpdateDiscoveryEnabled()
 void MainWindow::ShowSettings()
 {
 	SettingsDialog dialog(settings, this);
+	hide();
 	dialog.setModal(true);
 	dialog.exec();
 }
