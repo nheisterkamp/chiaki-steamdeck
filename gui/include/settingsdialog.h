@@ -4,6 +4,7 @@
 #define CHIAKI_SETTINGSDIALOG_H
 
 #include <QDialog>
+#include "mainwindow.h"
 
 class Settings;
 class QListWidget;
@@ -16,6 +17,7 @@ class SettingsDialog : public QDialog
 	Q_OBJECT
 
 	private:
+		MainWindow *parentWindow;
 		Settings *settings;
 
 		QCheckBox *log_verbose_check_box;
@@ -53,8 +55,11 @@ class SettingsDialog : public QDialog
 		void RegisterNewHost();
 		void DeleteRegisteredHost();
 
+	protected:
+		void closeEvent(QCloseEvent *event);
+
 	public:
-		SettingsDialog(Settings *settings, QWidget *parent = nullptr);
+		SettingsDialog(Settings *settings, MainWindow *parent = nullptr);
 };
 
 #endif // CHIAKI_SETTINGSDIALOG_H

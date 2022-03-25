@@ -36,8 +36,9 @@ const char * const about_string =
 	"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
 	"GNU General Public License for more details.</p>";
 
-SettingsDialog::SettingsDialog(Settings *settings, QWidget *parent) : QDialog(parent)
+SettingsDialog::SettingsDialog(Settings *settings, MainWindow *parent) : QDialog(parent)
 {
+	this->parentWindow = parent;
 	this->settings = settings;
 
 	setWindowTitle(tr("Settings"));
@@ -298,7 +299,7 @@ SettingsDialog::SettingsDialog(Settings *settings, QWidget *parent) : QDialog(pa
 	// Close Button
 	auto button_box = new QDialogButtonBox(QDialogButtonBox::Close, this);
 	root_layout->addWidget(button_box);
-	connect(button_box, &QDialogButtonBox::rejected, this, &QDialog::reject);
+	connect(button_box, &QDialogButtonBox::rejected, this, &QDialog::close);
 	button_box->button(QDialogButtonBox::Close)->setDefault(true);
 
 	UpdateRegisteredHosts();
@@ -306,6 +307,12 @@ SettingsDialog::SettingsDialog(Settings *settings, QWidget *parent) : QDialog(pa
 
 	connect(settings, &Settings::RegisteredHostsUpdated, this, &SettingsDialog::UpdateRegisteredHosts);
 	connect(registered_hosts_list_widget, &QListWidget::itemSelectionChanged, this, &SettingsDialog::UpdateRegisteredHostsButtons);
+}
+
+void SettingsDialog::closeEvent(QCloseEvent *event)
+{
+	qDebug() << "QCloseEvent : SettingsDialog closed";
+	parentWindow->show();
 }
 
 void SettingsDialog::ResolutionSelected()
